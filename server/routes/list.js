@@ -17,7 +17,7 @@ router.get('/getListName/:listId', (req, res) => {
         return res;
     });
 
-    if (list != null) {
+    if (list !== null) {
         res.send(list.name);
     }
 });
@@ -35,3 +35,5 @@ router.put('/editListName/:listId', (req, res) => {
         return res.status(200);
     });
 });
+
+module.exports = router;
