@@ -1,38 +1,65 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 
-import ListItem from '../models/ListItem';
+const ListItem = require('../models/ListItem');
+
+// create a list item
+router.post('/createListItem', (req, res) => {
+    let listItemData = req.body.listItemData;
+
+    ListItem.create({
+        name: listItemData.name,
+        details: listItemData.details,
+        listItemId: listItemData.listItemId,
+        positionId: listItemData.positionId,
+        isComplete: false,
+        createdAt: Date.now()
+    }, (err, listItems) => {
+        if (err) {
+            console.log(err);
+            res.status(404);
+            res.send(err);
+        }
+
+        if (listItems !== null) {
+            res.send(listItems);
+        }
+    });
+});
 
 // get all list items
 router.get('/getAllListItems', (req, res) => {
-    let allListItems = ListItem.find({}, (err, listItems) => {
-        return listItems;
-    });
+    ListItem.find({}, (err, listItems) => {
+        if (err) {
+            console.log(err);
+            res.status(404);
+            res.send(err);
+        }
 
-    if (allListItems !== null) {
-        res.send(allListItems);
-    }
+        if (listItems !== null) {
+            res.send(listItems);
+        }
+    });
 });
 
 // edit list item
 router.put('/editListItem/:listItemId', (req, res) => {
     let listItemId = req.params.listItemId;
-    let listItemEdits = req.body.data;
+    let listItemData = req.body.listItemData;
     
-    List.updateOne({ id: listItemId }, (err, listItem) => {
+    ListItem.findOneAndUpdate({ listItemId: listItemId }, {
+        name: listItemData.name,
+        isComplete: listItemData.isComplete,
+        positionId: listItemData.positionId,
+        updatedAt: Date.now()
+    }, (err, listItem) => {
         if (err) {
             console.error(err);
             res.send('something went wrong');
         }
 
-        if (listItemEdits !== null) {
-            listItem.name = listItemEdits.name !== '' ? listItemEdits.name : listItem.name;
-            listItem.details = listItemEdits.details !== '' ? listItemEdits.details : listItem.details;
-            listItem.status = listItemEdits.status !== '' ? listItemEdits.status : listItem.status;
-            listItem.position = listItemEdits.position !== '' ? listItemEdits.position : listItem.position;
-        }
-
-        return res.status(200);
+        res.status(200);
+        res.send(listItem);
     });
 });
 

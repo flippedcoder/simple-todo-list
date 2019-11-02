@@ -1,12 +1,13 @@
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
 
 const listSchema = new mongoose.Schema({
     name: String,
-    id: Number,
+    listId: Number,
     createdAt: Date,
     updatedAt: Date
-});
+},
+{ collection : 'List' });
 
 const List = mongoose.model('List', listSchema);
 
-export default List;
+module.exports = List;

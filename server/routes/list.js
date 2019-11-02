@@ -1,38 +1,65 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 
-import List from '../models/List';
+const List = require('../models/List');
 
-// get list name
-router.get('/getListName/:listId', (req, res) => {
-    let listId = req.params.listId;
+// add new list
+router.post('/createList/', (req, res) => {
+    let listData = req.body.listData;
 
-    // find list name in the database or return a not found message
-    let list = List.findOne({ id: listId }, (err, res) => {
+    List.create({ 
+        name: listData.name,
+        createdAt: Date.now(),
+        listId: listData.listId
+    }, (err, newList) => {
         if (err) {
             console.error(err);
             res.send('something went wrong');
         }
 
-        return res;
+        res.status(200);
+        res.send(newList);
     });
+});
 
-    if (list !== null) {
-        res.send(list.name);
-    }
+// get list
+router.get('/getListName/:listId', (req, res) => {
+    let listId = req.params.listId;
+    listId = parseInt(listId);
+
+    // find list name in the database or return a not found message
+    List.findOne({ listId: listId }, (err, list) => {
+        if (err) {
+            console.error(err);
+            res.send('something went wrong');
+        }
+
+        if (list !== null) {
+            res.send(list.name);
+        }
+        else {
+            res.send('there is no list');
+        }
+    });
 });
 
 // edit list name
 router.put('/editListName/:listId', (req, res) => {
     let listId = req.params.listId;
+    let listData = req.body.listData;
+    listId = parseInt(listId);
 
-    List.updateOne({ id: listId }, (err, res) => {
+    List.findOneAndUpdate({ listId: listId }, { 
+        name: listData.name,
+        updatedAt: Date.now()
+     }, (err, list) => {
         if (err) {
             console.error(err);
             res.send('something went wrong');
         }
 
-        return res.status(200);
+        res.status(200);
+        res.send(list);
     });
 });
 

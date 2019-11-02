@@ -1,26 +1,47 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 
-import ListItem from '../models/ListItem';
+const ListItem = require('../models/ListItem');
 
 // get list item details
 router.get('/getListItemDetails/:listItemId', (req, res) => {
     let listItemId = req.params.listItemId;
+    listItemId = parseInt(listItemId);
 
-    ListItem.find({ listItemId: listItemId }, (err, listItemDetails) => {
+    ListItem.findOne({ listItemId: listItemId }, (err, listItem) => {
         if (err) {
             console.log(err);
             res.status(404);
             res.send(err);
         }
         
-        if (listItemDetails !== null) {
-            res.send(listItemDetails);
+        if (listItem !== null) {
+            let details = listItem.details;
+            res.send(details);
         } else {
             res.send({
                 message: 'no details for this item. you really should not see this'
             });
         }
+    });
+});
+
+// edit list item details
+router.put('/editListItemDetails/:listItemId', (req, res) => {
+    let listItemId = req.params.listItemId;
+    let listItemData = req.body.listItemData;
+    
+    ListItem.findOneAndUpdate({ listItemId: listItemId }, {
+        details: listItemData.details,
+        updatedAt: Date.now()
+    }, (err, listItem) => {
+        if (err) {
+            console.error(err);
+            res.send('something went wrong');
+        }
+
+        res.status(200);
+        res.send(listItem);
     });
 });
 

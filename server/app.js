@@ -7,7 +7,7 @@ let listItemRouter = require('./routes/listItem');
 
 const app = express();
 
-mongoose.connect('mongodb://127.0.0.1:27017/todo-list', { useNewUrlParser: true });
+mongoose.connect('mongodb://127.0.0.1:27017/todo_list', { useNewUrlParser: true });
 
 const connection = mongoose.connection;
 
@@ -19,10 +19,12 @@ app.listen(3010, () => {
     console.log("todo endpoints running on port 3010");
 });
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 app.use('/list', listRouter);
 app.use('/listDetail', listDetailRouter);
 app.use('/listItem', listItemRouter);
 
 app.get('/', (req, res) => {
-    res.send('im here');
+    res.send('the backend works. check your front-end crap.');
 });
