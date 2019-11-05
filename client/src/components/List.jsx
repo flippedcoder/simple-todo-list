@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import logo from '../assets/logo.svg';
-import '../assets/App.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars, faPencilAlt, faPlus } from '@fortawesome/free-solid-svg-icons';
+import '../assets/List.css';
 
 import _Menu from './_Menu';
 import ListItem from './ListItem';
@@ -28,25 +29,18 @@ class List extends Component {
 
 	render() {
 		return (
-			<div className="list">
+			<div id="list">
 				<header className="list-header">
-					<p>{this.props.listName}</p>
-					<div className="list-action" onClick={this.addListItem}>
-                        <span>
-                            <i className="fas fa-plus"></i>
-                        </span>
-                    </div>
-					<div className="list-action" onClick={this.editList}>
-                        <span>
-                            <i className="fas fa-pencil"></i>
-                        </span>
-                    </div>
-					<div className="list-action" onClick={this.showMenu}>
-                        <span>
-                            <i className="fas fa-bars"></i>
-                        </span>
-                    </div>
-                    <_Menu />
+					<p className="list-title">{this.props.listName}</p>
+                    <FontAwesomeIcon icon={faPlus}
+                                     className="list-action"
+                                     onClick={this.addListItem} />
+                    <FontAwesomeIcon icon={faPencilAlt}
+                                     className="list-action"
+                                     onClick={this.editList} />
+                    <FontAwesomeIcon icon={faBars}
+                                     className="list-action"
+                                     onClick={this.showMenu} />
 				</header>
                 <main>
                     {this.props.listItems.map(listItem => {

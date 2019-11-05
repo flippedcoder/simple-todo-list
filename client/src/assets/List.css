@@ -1,0 +1,17 @@
+.list-action {
+    color: #FFF;
+    width: 24px;
+}
+
+.list-header {
+    background-color: #6F3AC0;
+    height: 100px;
+}
+
+.list-title {
+    color: #FFF;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 36px;
+    line-height: 100px;
+    margin: 0;
+}

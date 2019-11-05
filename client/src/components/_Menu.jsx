@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import logo from '../assets/logo.svg';
 import '../assets/App.css';
 
-class Menu extends Component {
+class _Menu extends Component {
 	render() {
 		return (
 			<div className="App">
@@ -12,4 +11,4 @@ class Menu extends Component {
 	}
 }
 
-export default Menu;
+export default _Menu;
