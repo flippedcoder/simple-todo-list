@@ -27,29 +27,31 @@ class List extends Component {
 
     }
 
-	render() {
-		return (
-			<div id="list">
-				<header className="list-header">
-					<p className="list-title">{this.props.listName}</p>
-                    <FontAwesomeIcon icon={faPlus}
-                                     className="list-action"
-                                     onClick={this.addListItem} />
-                    <FontAwesomeIcon icon={faPencilAlt}
-                                     className="list-action"
-                                     onClick={this.editList} />
-                    <FontAwesomeIcon icon={faBars}
-                                     className="list-action"
-                                     onClick={this.showMenu} />
-				</header>
+    render() {
+        return (
+            <div id="list">
+                <header className="list-header">
+                    <span className="list-title">{this.props.listName}</span>
+                    <div className="action-icons">
+                        <FontAwesomeIcon icon={faPlus}
+                            className="list-action"
+                            onClick={this.addListItem} />
+                        <FontAwesomeIcon icon={faPencilAlt}
+                            className="list-action"
+                            onClick={this.editList} />
+                        <FontAwesomeIcon icon={faBars}
+                            className="list-action"
+                            onClick={this.showMenu} />
+                    </div>
+                </header>
                 <main>
                     {this.props.listItems.map(listItem => {
                         return <ListItem item={listItem} />
                     })}
                 </main>
-			</div>
-		);
-	}
+            </div>
+        );
+    }
 }
 
 export default List;

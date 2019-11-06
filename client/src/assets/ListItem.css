@@ -1,0 +1,21 @@
+.action-item-icons {
+    margin: 0 auto;
+    width: 30%;
+}
+
+.list-item {
+    background-color: grey;
+    border: 5px solid #FFF;
+    height: 100px;
+}
+
+.list-item > div {
+    margin: 0 auto;
+}
+
+.list-item-row {
+    display: flex;
+    flex-direction: row;
+    font-size: 24px;
+    line-height: 100px;
+}

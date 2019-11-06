@@ -1,10 +1,21 @@
+.action-icons {
+    float: left;
+    line-height: 100px;
+    margin: 0 auto;
+    padding: 0;
+    width: 250px;
+}
+
 .list-action {
     color: #FFF;
-    width: 24px;
+    font-size: 36px;
+    margin: 0 0 0 30px;
 }
 
 .list-header {
     background-color: #6F3AC0;
+    display: flex;
+    flex-direction: row;
     height: 100px;
 }
 
@@ -13,5 +24,16 @@
     font-family: 'Courier New', Courier, monospace;
     font-size: 36px;
     line-height: 100px;
-    margin: 0;
+    margin: 0 auto;
+    width: 250px;
 }
+
+.svg-inline--fa.fa-w-14 {
+    width: 50px;
+}
+
+@media only screen and (max-width: 600px) {
+    .list-action:nth-child(-n+2) {
+      display: none;
+    }
+  }
