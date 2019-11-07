@@ -1,9 +1,16 @@
 import React, { Component } from 'react';
-import '../assets/App.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBomb, faPencilAlt, faTrash } from '@fortawesome/free-solid-svg-icons';
+
+import '../assets/ListItemDetails.css';
 
 class ListItemDetails extends Component {
-    constructor() {
+    constructor(props) {
         super();
+
+        this.state = {
+            isModalOpen: props.isModalOpen
+        };
 
         this.closeDetails = this.closeDetails.bind(this);
         this.deleteListItem = this.deleteListItem.bind(this);
@@ -11,7 +18,9 @@ class ListItemDetails extends Component {
     }
 
     closeDetails() {
-
+        this.setState({
+            isModalOpen: false
+        });
     }
 
     deleteListItem() {
@@ -24,17 +33,27 @@ class ListItemDetails extends Component {
 
 	render() {
 		return (
-			<div className="list-item-details">
-                <header>
-                    <p>Details</p>
-                    <p onClick={this.closeDetails}><i className="fas fa-close"></i></p>
+			<div className={"list-item-details" + (this.state.isModalOpen ? "" : " hidden")}>
+                <header className="flex-2">
+                    <h1>Details</h1>
+                    <p onClick={this.closeDetails}>
+                        <FontAwesomeIcon icon={faBomb}
+                            className="list-item-action"
+                            onClick={this.closeDetails} />
+                    </p>
                 </header>
                 <main>
                     {this.props.listItem.details}
                 </main>
-                <footer>
-                    <p onClick={this.editListItemDetails}><i className="fas fa-pencil"></i></p>
-                    <p onClick={this.deleteListItem}><i className="fas fa-trash"></i></p>
+                <footer className="flex-2">
+                    <p onClick={this.editListItemDetails}>
+                        <FontAwesomeIcon icon={faPencilAlt}
+                            className="list-item-action" />
+                    </p>
+                    <p onClick={this.deleteListItem}>
+                        <FontAwesomeIcon icon={faTrash}
+                            className="list-item-action" />
+                    </p>
                 </footer>
 			</div>
 		);
