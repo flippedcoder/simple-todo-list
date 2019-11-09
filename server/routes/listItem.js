@@ -63,4 +63,18 @@ router.put('/editListItem/:listItemId', (req, res) => {
     });
 });
 
+// delete list item
+router.delete('/deleteListItem/:listItemId', (req, res) => {
+    let listItemId = req.params.listItemId;
+    
+    ListItem.findOneAndDelete({ listItemId: listItemId }, (err) => {
+        if (err) {
+            console.error(err);
+            res.send('something went wrong');
+        }
+
+        res.status(200).json({ message: 'you deleted it' });
+    });
+});
+
 module.exports = router;

@@ -29,10 +29,10 @@ router.get('/getListItemDetails/:listItemId', (req, res) => {
 // edit list item details
 router.put('/editListItemDetails/:listItemId', (req, res) => {
     let listItemId = req.params.listItemId;
-    let listItemData = req.body.listItemData;
+    let listItemDetails = req.body.listItemDetails;
     
     ListItem.findOneAndUpdate({ listItemId: listItemId }, {
-        details: listItemData.details,
+        details: listItemDetails,
         updatedAt: Date.now()
     }, (err, listItem) => {
         if (err) {

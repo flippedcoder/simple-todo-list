@@ -12,6 +12,10 @@ class ListItem extends Component {
 
         this.completed = <FontAwesomeIcon icon={faExclamation} className="list-item-action" />;
 
+        this.state = {
+            showDetails: null
+        };
+
         this.checkListItemCompleted = this.checkListItemCompleted.bind(this);
         this.showListDetails = this.showListDetails.bind(this);
     }
@@ -28,21 +32,28 @@ class ListItem extends Component {
         }
     }
 
-    showListDetails(listItem) {
+    showListDetails() {
+        let listItem = this.props.item;
         if (listItem !== null) {
-            this.listItemDetails = <ListItemDetails listItem={listItem}
-                                                    isModalOpen={true} />;
-        } else {
-            this.listItemDetails = <div>No list item details to show. Add some.</div>;
+            this.setState({
+                showDetails: true
+            });
         }
     }
 
     render() {
+        let listItem = this.props.item;
+        let listItemDetails = null;
+
+        if (this.state.showDetails) {
+            listItemDetails = <ListItemDetails listItem={listItem} isModalOpen={true} />;
+        }
+
         return (
             <div className="list-item">
                 <div className="list-item-row">
                     <div className="action-item-icons"
-                         onClick={this.showListDetails(this.props.item)}>
+                         onClick={this.showListDetails}>
                          {this.props.item.name}
                     </div>
                     <div className="action-item-icons">{this.completed}</div>
@@ -53,7 +64,7 @@ class ListItem extends Component {
                             className="list-item-action" />
                     </div>
                 </div>
-                {this.listItemDetails}
+                {listItemDetails}
             </div>
         );
     }

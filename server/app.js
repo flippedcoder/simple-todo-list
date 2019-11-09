@@ -1,3 +1,4 @@
+const cors = require('cors');
 const express = require('express');
 const mongoose = require('mongoose');
 
@@ -19,6 +20,7 @@ app.listen(3010, () => {
     console.log("todo endpoints running on port 3010");
 });
 
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use('/list', listRouter);

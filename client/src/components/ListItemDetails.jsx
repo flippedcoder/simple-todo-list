@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { Component } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBomb, faPencilAlt, faTrash } from '@fortawesome/free-solid-svg-icons';
@@ -6,7 +7,7 @@ import '../assets/ListItemDetails.css';
 
 class ListItemDetails extends Component {
     constructor(props) {
-        super();
+        super(props);
 
         this.state = {
             isModalOpen: props.isModalOpen
@@ -17,6 +18,12 @@ class ListItemDetails extends Component {
         this.editListItemDetails = this.editListItemDetails.bind(this);
     }
 
+    componentWillReceiveProps() {
+        this.setState({
+            isModalOpen: this.props.isModalOpen
+        });
+    }
+
     closeDetails() {
         this.setState({
             isModalOpen: false
@@ -24,11 +31,26 @@ class ListItemDetails extends Component {
     }
 
     deleteListItem() {
+        let listItemId = this.props.listItem.listItemId;
 
+        axios.delete(`http://localhost:3010/listItem/deleteListItem/${listItemId}`)
+                .then(res => {
+                    console.log(res);
+                    console.log(res.data);
+                });
     }
 
-    editListItemDetails() {
+    editListItemDetails(e) {
+        let listItemId = this.props.listItem.listItemId;
+        let listItemDetails = e.target.listItemDetails;
 
+        axios.put(`http://localhost:3010/editListItemDetails/${listItemId}`, {
+                listItemDetails: listItemDetails
+            })
+            .then(res => {
+                console.log(res);
+                console.log(res.data);
+            });
     }
 
 	render() {

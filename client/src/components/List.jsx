@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { Component } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faPencilAlt, faPlus } from '@fortawesome/free-solid-svg-icons';
@@ -16,7 +17,7 @@ class List extends Component {
     }
 
     addListItem() {
-
+        
     }
 
     editList() {
@@ -46,7 +47,7 @@ class List extends Component {
                 </header>
                 <main>
                     {this.props.listItems.map(listItem => {
-                        return <ListItem item={listItem} />
+                        return <ListItem key={listItem.listId} item={listItem} />
                     })}
                 </main>
             </div>
