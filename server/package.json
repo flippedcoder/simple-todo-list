@@ -9,5 +9,6 @@
     "cors": "^2.8.5",
     "express": "~4.16.1",
     "mongoose": "^5.7.7"
-  }
+  },
+  "proxy": "http://localhost:3010"
 }

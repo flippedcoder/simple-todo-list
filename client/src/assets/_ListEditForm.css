@@ -1,0 +1,13 @@
+.hidden {
+    display: none;
+}
+
+.list-edit-form {
+    background-color: rgba(119, 136, 153, 0.4);
+    left: 50%;
+    margin-left: -150px !important;
+    padding: 36px;
+    position: absolute;
+    top: 25%;
+    width: 300px;
+}

@@ -4,31 +4,50 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faPencilAlt, faPlus } from '@fortawesome/free-solid-svg-icons';
 import '../assets/List.css';
 
-import _Menu from './_Menu';
 import ListItem from './ListItem';
+import _ListEditForm from './_ListEditForm';
 
 class List extends Component {
     constructor() {
         super();
 
+        this.state = {
+            showEditForm: false
+        };
+
         this.addListItem = this.addListItem.bind(this);
-        this.editList = this.editList.bind(this);
-        this.showMenu = this.showMenu.bind(this);
+        this.editListName = this.editListName.bind(this);
+        this.showEditFormModal = this.showEditFormModal.bind(this);
     }
 
     addListItem() {
-        
+        axios.post('/listItem/createListItem', {
+            listItemData: {
+                name: '',
+                details: '',
+                listItemId: 1,
+                positionId: 4
+            }
+        })
+        .then(res => {
+            if (res.status === 200) {
+                console.log('created new item');
+            }
+        });
     }
 
-    editList() {
-
-    }
-
-    showMenu() {
-
+    showEditFormModal() {
+        this.setState({
+            showEditForm: true
+        });
     }
 
     render() {
+        let editForm = null;
+
+        if (this.state.showEditForm) {
+            editForm = <_ListEditForm showEditForm={true} />;
+        }
         return (
             <div id="list">
                 <header className="list-header">
@@ -39,10 +58,9 @@ class List extends Component {
                             onClick={this.addListItem} />
                         <FontAwesomeIcon icon={faPencilAlt}
                             className="list-action"
-                            onClick={this.editList} />
+                            onClick={this.showEditFormModal} />
                         <FontAwesomeIcon icon={faBars}
-                            className="list-action"
-                            onClick={this.showMenu} />
+                            className="list-action" />
                     </div>
                 </header>
                 <main>
@@ -50,6 +68,7 @@ class List extends Component {
                         return <ListItem key={listItem.listId} item={listItem} />
                     })}
                 </main>
+                {editForm}
             </div>
         );
     }

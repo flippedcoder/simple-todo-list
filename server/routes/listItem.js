@@ -14,16 +14,13 @@ router.post('/createListItem', (req, res) => {
         positionId: listItemData.positionId,
         isComplete: false,
         createdAt: Date.now()
-    }, (err, listItems) => {
+    }, (err, listItem) => {
         if (err) {
             console.log(err);
             res.status(404);
             res.send(err);
         }
-
-        if (listItems !== null) {
-            res.send(listItems);
-        }
+        res.send(listItem);
     });
 });
 

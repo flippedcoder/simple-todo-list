@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const listItemSchema = new mongoose.Schema({
     name: String,
     details: String,
+    listId: Number,
     listItemId: Number,
     positionId: Number,
     isComplete: Boolean,

@@ -18,7 +18,7 @@ class App extends Component {
 		axios.get(`http://localhost:3010/listItem/getAllListItems`)
 			.then(res => {
 				this.setState({
-					listName: 'secondPhase',
+					listName: res.listName,
 					listItems: [...res.data]
 				});
 
