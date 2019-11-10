@@ -16,7 +16,6 @@ class List extends Component {
         };
 
         this.addListItem = this.addListItem.bind(this);
-        this.editListName = this.editListName.bind(this);
         this.showEditFormModal = this.showEditFormModal.bind(this);
     }
 
@@ -59,8 +58,6 @@ class List extends Component {
                         <FontAwesomeIcon icon={faPencilAlt}
                             className="list-action"
                             onClick={this.showEditFormModal} />
-                        <FontAwesomeIcon icon={faBars}
-                            className="list-action" />
                     </div>
                 </header>
                 <main>
